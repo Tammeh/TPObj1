@@ -1,33 +1,44 @@
 class Companiero {
 	const mochila
-	const capacidadMochila
-	var energia = 0
+	var energia = 100
 	
 	constructor(){
-		mochila = #{}
-		capacidadMochila = 3
-		
+		mochila = #{}	
 	}
 	
 	method mochila() = mochila
 	method energia() = energia
 	
+	method setEnergia(_energia){
+		energia = _energia
+	}
+	method cantidadDeObjetos(){
+		return mochila.size()
+	}
 	
 	
-	method puedeRecolectar(unMaterial){
-		return unMaterial.gramosDeMetal() <= energia && capacidadMochila < 3
-	}
-	method recolectar(unMaterial){
-		if (!self.puedeRecolectar(unMaterial)){
-			self.error("No puede recolectar el material")
-		}
-	mochila.add(unMaterial)
-		
-	}
+	method puedeRecolectar(unMaterial)
+	
+	method recolectar(unMaterial)
 	
 	method darObjetos(unCompaniero){
 		unCompaniero.mochila().addAll(mochila)
 		self.mochila().removeAll()
 	}
 
+}
+
+object morty inherits Companiero{
+	const capacidadMochila = 3
+	
+	override method puedeRecolectar(unMaterial){
+		return unMaterial.energiaRequeridaRecoleccion() <= energia && self.cantidadDeObjetos() < capacidadMochila
+	}
+	override method recolectar(unMaterial){
+		if (!self.puedeRecolectar(unMaterial)){
+			self.error("No puede recolectar el material")
+		}
+		mochila.add(unMaterial)
+		
+	}
 }
