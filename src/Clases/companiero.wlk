@@ -12,6 +12,9 @@ class Companiero {
 	method setEnergia(_energia){
 		energia = _energia
 	}
+	method restarEnergia(_energia){
+		energia -= _energia 
+	}
 	method cantidadDeObjetos(){
 		return mochila.size()
 	}
@@ -22,7 +25,7 @@ class Companiero {
 	method recolectar(unMaterial)
 	
 	method darObjetos(unCompaniero){
-		unCompaniero.mochila().addAll(mochila)
+		unCompaniero.recibir(mochila)
 		self.mochila().removeAll()
 	}
 
@@ -40,5 +43,54 @@ object morty inherits Companiero{
 		}
 		mochila.add(unMaterial)
 		
+	}
+}
+
+object rick inherits Companiero{
+	var companiero
+	var experimentosQueSabe = #{}
+	
+	method companiero() = companiero
+	method companiero(unCompaniero){ companiero = unCompaniero }
+	method experimentosQueSabe() = experimentosQueSabe
+	method experimentosQueSabe(unExperimento){ experimentosQueSabe += #{unExperimento} }
+	
+	//Rick guarda los materiales recibidos en su mochila
+	method recibir(unosMateriales){
+		mochila.addAll(unosMateriales)
+	}
+	
+	//Retorna un conjunto con los experimentos que puede realizar Rick
+	method experimentosQuePuedeRealizar(){
+		return experimentosQueSabe.filter({experimento => self.puedeRealizarExperimento(experimento)}).asSet()
+	}
+	
+	//Retorna verdadero si Rick puede realizar el experimento <unExperimento>
+	method puedeRealizarExperimento(unExperimento){
+		return unExperimento.materialesRequeridos(self).difference(mochila).isEmpty()
+	}
+	
+	//Rick realiza el experimento <unExperimento>. En caso de que pueda realizarlo,
+	//rick usa los materiales de su mochila y recibe el efecto del experimento.
+	method realizar(unExperimento){
+		if(!self.puedeRealizarExperimento(unExperimento)){
+			self.error("No puede realizar el experimento")
+		}
+		mochila.removeAll(unExperimento.materialesRequeridos(self))
+		self.recibirEfecto(unExperimento)
+	}
+	
+	//Rick recibe el efecto del experimento <unExperimento>
+	method recibirEfecto(unExperimento){
+		unExperimento.efecto(self)
+	}
+	
+	//Ambos metodos quedan vacios, ya que no nos interesan para Rick
+	override method puedeRecolectar(unMaterial){
+		//Dejar vacio
+	}
+	
+	override method recolectar(unMaterial){
+		//Dejar vacio
 	}
 }
