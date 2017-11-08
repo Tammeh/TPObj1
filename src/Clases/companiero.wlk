@@ -15,6 +15,9 @@ class Companiero {
 	method restarEnergia(_energia){
 		energia -= _energia 
 	}
+	method sumarEnergia(_energia){
+		energia += _energia 
+	}
 	method cantidadDeObjetos(){
 		return mochila.size()
 	}
