@@ -86,6 +86,31 @@ class MateriaOscura inherits Material{
 	
 }
 
+class Bateria inherits Material{
+	const materialesQueLaConstruyeron
+	
+	constructor(_materialesQueLaConstruyeron){
+		materialesQueLaConstruyeron = _materialesQueLaConstruyeron
+	}
+	
+	override method gramosDeMetal() = materialesQueLaConstruyeron.sum({material => material.gramosDeMetal()})
+	override method electricidadQueConduce() = 0
+	override method esRadioactivo()  = true
+	override method energiaQueGenera() = self.gramosDeMetal()*2
+	
+}
 
+class Circuito inherits Material{
+	const materialesQueLaConstruyeron
+	
+	constructor(_materialesQueLaConstruyeron){
+		materialesQueLaConstruyeron = _materialesQueLaConstruyeron
+	}
+	
+	override method gramosDeMetal() = materialesQueLaConstruyeron.sum({material => material.gramosDeMetal()})
+	override method electricidadQueConduce() =  (materialesQueLaConstruyeron.sum({material => material.electricidadQueConduce()})*3)
+	override method esRadioactivo()  =  materialesQueLaConstruyeron.any({material => material.esRadioctivo()})
+	override method energiaQueGenera() = 0
+}
 
 
