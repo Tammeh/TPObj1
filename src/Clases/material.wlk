@@ -4,6 +4,9 @@ class Material {
 	method electricidadQueConduce()
 	method esRadioactivo()
 	method energiaQueGenera()
+	method energiaRequeridaRecoleccion(){
+		return self.gramosDeMetal()
+	}
 }
 
 class Lata inherits Material{
@@ -20,6 +23,7 @@ class Lata inherits Material{
 	override method esRadioactivo() = false
 	
 	override method energiaQueGenera() = 0
+	
 }
 
 class Cable inherits Material{
@@ -39,6 +43,7 @@ class Cable inherits Material{
 	override method esRadioactivo() = false
 	
 	override method energiaQueGenera() = 0
+	
 }
 
 class Fleeb inherits Material{
@@ -62,18 +67,23 @@ class Fleeb inherits Material{
 	override method energiaQueGenera(){
 		return materialesQueComio.max({material => material.energiaQueGenera()}).energiaQueGenera()
 	}
+	
+	override method energiaRequeridaRecoleccion(){
+		return super() * 2
+	}
 }
 
-class MateriaOscura{
+class MateriaOscura inherits Material{
 	var materialBase
 	
 	constructor(_materialBase){
 		materialBase = _materialBase
 	}
-	method gramosDeMetal() = materialBase.gramosDeMetal()
-	method electricidadQueConduce() = materialBase.electricidadQueConduce() / 2
-	method esRadioactivo()  = false
-	method energiaQueGenera() = materialBase.energiaQueGenera() * 2
+	override method gramosDeMetal() = materialBase.gramosDeMetal()
+	override method electricidadQueConduce() = materialBase.electricidadQueConduce() / 2
+	override method esRadioactivo()  = false
+	override method energiaQueGenera() = materialBase.energiaQueGenera() * 2
+	
 }
 
 
