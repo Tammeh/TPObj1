@@ -80,13 +80,14 @@ object rick inherits Companiero{
 		if(!self.puedeRealizarExperimento(unExperimento)){
 			self.error("No puede realizar el experimento")
 		}
+		var materialesNecesarios = unExperimento.materialesRequeridos(self)
 		mochila.removeAll(unExperimento.materialesRequeridos(self))
-		self.recibirEfecto(unExperimento)
+		self.recibirEfecto(unExperimento, materialesNecesarios)
 	}
 	
 	//Rick recibe el efecto del experimento <unExperimento>
-	method recibirEfecto(unExperimento){
-		unExperimento.efecto(self)
+	method recibirEfecto(unExperimento, _materialesNecesarios){
+		unExperimento.efecto(self, _materialesNecesarios)
 	}
 	
 	//Ambos metodos quedan vacios, ya que no nos interesan para Rick

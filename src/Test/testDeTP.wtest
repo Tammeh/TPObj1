@@ -18,6 +18,7 @@ describe "Tests de Proyecto" {
 		morty.recolectar(cable)
 		morty.recolectar(lata)
 		morty.recolectar(materiaOscura)
+		rick.companiero(morty)
 	}
 
 	test "Test de Lata" {
@@ -65,11 +66,17 @@ describe "Tests de Proyecto" {
 		assert.that(rick.puedeRealizarExperimento(construirUnaBateria))
 		assert.that(rick.puedeRealizarExperimento(construirUnCircuito))
 		
-		
-		
-		
-		
 	}
+	
+	test "test construir"{
+		morty.mochila().removeAll(morty.mochila())
+		morty.recolectar(altaLata)
+		morty.recolectar(viejoFleeb)
+		morty.darObjetos(rick)
+		assert.that(rick.puedeRealizarExperimento(construirUnaBateria))
+		rick.realizar(construirUnaBateria)
+	}
+		
 	
 	
 }	

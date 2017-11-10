@@ -3,7 +3,7 @@ import material.*
 class Experimento{
 	
 	method materialesRequeridos(_companiero)
-	method efecto(_companiero)
+	method efecto(_companiero, _materialesNecesarios)
 	
 }
 
@@ -13,8 +13,8 @@ object construirUnaBateria inherits Experimento {
 	 	 	   #{_companiero.mochila().find({material => material.esRadioactivo()})}   
 	 }
 	 
-	override method efecto(_companiero){
-		var bateria = new Bateria(self.materialesRequeridos(_companiero))
+	override method efecto(_companiero, _materialesNecesarios){
+		var bateria = new Bateria(_materialesNecesarios)
 		_companiero.companiero().restarEnergia(5)
 		_companiero.mochila().add(bateria)
 	}
@@ -25,8 +25,8 @@ object construirUnCircuito inherits Experimento {
 		return _companiero.mochila().filter({material => material.electricidadQueConduce() >= 5})
 	}
 	
-	override method efecto(_companiero){
-		var circuito = new Circuito(self.materialesRequeridos(_companiero))
+	override method efecto(_companiero ,_materialesNecesarios){
+		var circuito = new Circuito(_materialesNecesarios)
 		_companiero.mochila().add(circuito)
 	}
 		
@@ -37,7 +37,7 @@ object construirUnShockElectrico inherits Experimento {
 		return #{self.materialConductor(_companiero)} + #{self.materialGenerador(_companiero)}
 	}
 	
-	override method efecto(_companiero){
+	override method efecto(_companiero, _materialesNecesarios){
 		_companiero.companiero().sumarEnergia(self.energiaQueIncrementa(_companiero))
 	}
 	
