@@ -1,10 +1,10 @@
 class Companiero {
-	const mochila
+	const mochila = #{}
 	var energia = 100
 	
-	constructor(){
-		mochila = #{}	
-	}
+//	constructor(){
+//		mochila = #{}	
+//	}
 	
 	method mochila() = mochila
 	method energia() = energia
@@ -29,7 +29,7 @@ class Companiero {
 	
 	method darObjetos(unCompaniero){
 		unCompaniero.recibir(mochila)
-		self.mochila().removeAll()
+		self.mochila().removeAll(self.mochila())
 	}
 
 }
@@ -45,6 +45,7 @@ object morty inherits Companiero{
 			self.error("No puede recolectar el material")
 		}
 		mochila.add(unMaterial)
+		self.restarEnergia(unMaterial.gramosDeMetal())
 		
 	}
 }

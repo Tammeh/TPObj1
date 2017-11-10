@@ -1,0 +1,75 @@
+import Clases.material.*
+import Clases.companiero.*
+import Clases.experimento.*
+
+describe "Tests de Proyecto" {
+	
+	var lata = new Lata(10)
+	var cable = new Cable(1000, 10)
+	var lataCableada = #{lata, cable}
+	var fleeb = new Fleeb(lataCableada,10)
+	var materiaOscura = new MateriaOscura(cable)
+	var altaLata = new Lata(500)
+	var viejoFleeb = new Fleeb(lataCableada, 20)
+	
+
+	fixture{
+		morty.setEnergia(1000)
+		morty.recolectar(cable)
+		morty.recolectar(lata)
+		morty.recolectar(materiaOscura)
+	}
+
+	test "Test de Lata" {
+
+		assert.notThat(lata.esRadioactivo())
+		assert.equals(10, lata.gramosDeMetal())
+		assert.equals(1, lata.electricidadQueConduce())
+		assert.equals(0, lata.energiaQueGenera())
+
+	}
+	
+	test "Test de Cable"{
+		assert.notThat(cable.esRadioactivo())
+		assert.equals(10, cable.gramosDeMetal())
+		assert.equals(30, cable.electricidadQueConduce())
+		assert.equals(0, cable.energiaQueGenera())
+	}
+	
+	test "Test de Fleeb"{
+		assert.notThat(fleeb.esRadioactivo())
+		assert.equals(20, fleeb.gramosDeMetal())
+		assert.equals(1, fleeb.electricidadQueConduce())
+		assert.equals(0, fleeb.energiaQueGenera())
+	}
+	
+	test "Test de Materia Oscura"{
+		assert.notThat(materiaOscura.esRadioactivo())
+		assert.equals(10, materiaOscura.gramosDeMetal())
+		assert.equals(15, materiaOscura.electricidadQueConduce())
+		assert.equals(0, materiaOscura.energiaQueGenera())
+	}
+	
+	test "Test de Morty"{
+		assert.notThat(morty.puedeRecolectar(lata))
+		assert.equals(970, morty.energia())
+		morty.darObjetos(rick)
+		assert.that(morty.mochila().isEmpty())
+	}
+	
+	test "Test de Rick"{
+		morty.mochila().removeAll(morty.mochila())
+		morty.recolectar(altaLata)
+		morty.recolectar(viejoFleeb)
+		morty.darObjetos(rick)
+		assert.that(rick.puedeRealizarExperimento(construirUnaBateria))
+		assert.that(rick.puedeRealizarExperimento(construirUnCircuito))
+		
+		
+		
+		
+		
+	}
+	
+	
+}	
