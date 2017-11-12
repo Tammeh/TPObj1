@@ -2,31 +2,33 @@ class Companiero {
 	const mochila = #{}
 	var energia = 100
 	
-//	constructor(){
-//		mochila = #{}	
-//	}
-	
+
+	//Retorna la mocila del compañero
 	method mochila() = mochila
+	//Retorna la energia del compañero
 	method energia() = energia
-	
+	//Configura la energia del compañero en cualquier momento
 	method setEnergia(_energia){
 		energia = _energia
 	}
+	//Resta la energia del compañero
 	method restarEnergia(_energia){
 		energia -= _energia 
 	}
+	//Suma la energia del compañero
 	method sumarEnergia(_energia){
 		energia += _energia 
 	}
+	//Retorna la cantidad de objetos que haya en la mochila del compañero
 	method cantidadDeObjetos(){
 		return mochila.size()
 	}
 	
-	
+	//Verifica si un compañero puede recolectar un material en especifico
 	method puedeRecolectar(unMaterial)
-	
+	//Recolecta un material en especifico
 	method recolectar(unMaterial)
-	
+	//Un compañero entraga sus objetos a otro
 	method darObjetos(unCompaniero){
 		unCompaniero.recibir(mochila)
 		self.mochila().removeAll(self.mochila())
@@ -71,7 +73,11 @@ object rick inherits Companiero{
 	
 	//Retorna verdadero si Rick puede realizar el experimento <unExperimento>
 	method puedeRealizarExperimento(unExperimento){
+		if (unExperimento.materialesRequeridos(self).isEmpty()) {
+			return false
+		}
 		return unExperimento.materialesRequeridos(self).difference(mochila).isEmpty()
+		
 	}
 	
 	//Rick realiza el experimento <unExperimento>. En caso de que pueda realizarlo,
@@ -81,7 +87,7 @@ object rick inherits Companiero{
 			self.error("No puede realizar el experimento")
 		}
 		var materialesNecesarios = unExperimento.materialesRequeridos(self)
-		mochila.removeAll(unExperimento.materialesRequeridos(self))
+		mochila.removeAll(materialesNecesarios)
 		self.recibirEfecto(unExperimento, materialesNecesarios)
 	}
 	

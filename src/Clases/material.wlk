@@ -1,9 +1,14 @@
 
 class Material {
+	//Retorna la cantidad de gramos de metal de un material
 	method gramosDeMetal()
+	//Retorna la electricidad que conduce un material
 	method electricidadQueConduce()
+	//Verifica si un material es radioactivo o no
 	method esRadioactivo()
+	//Retorna la energia que genera un material
 	method energiaQueGenera()
+	//Retorna la energia requerida para poder recolectar un material
 	method energiaRequeridaRecoleccion(){
 		return self.gramosDeMetal()
 	}

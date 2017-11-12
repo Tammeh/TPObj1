@@ -65,18 +65,18 @@ describe "Tests de Proyecto" {
 		morty.darObjetos(rick)
 		assert.that(rick.puedeRealizarExperimento(construirUnaBateria))
 		assert.that(rick.puedeRealizarExperimento(construirUnCircuito))
-		
+		rick.realizar(construirUnaBateria)
+		assert.equals(1,rick.cantidadDeObjetos())
+		//morty.recolectar(viejoFleeb)
+		//morty.darObjetos(rick)
+		//assert.that(rick.puedeRealizarExperimento(construirUnShockElectrico))
+		//morty.setEnergia(1000)
+		//rick.realizar(construirUnShockElectrico)
+		//assert.equals(2040, morty.energia())
+	
 	}
 	
-	test "test construir"{
-		morty.mochila().removeAll(morty.mochila())
-		morty.recolectar(altaLata)
-		morty.recolectar(viejoFleeb)
-		morty.darObjetos(rick)
-		assert.that(rick.puedeRealizarExperimento(construirUnaBateria))
-		rick.realizar(construirUnaBateria)
-	}
-		
+
 	
 	
 }	
