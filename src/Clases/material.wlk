@@ -114,7 +114,7 @@ class Circuito inherits Material{
 	
 	override method gramosDeMetal() = materialesQueLaConstruyeron.sum({material => material.gramosDeMetal()})
 	override method electricidadQueConduce() =  (materialesQueLaConstruyeron.sum({material => material.electricidadQueConduce()})*3)
-	override method esRadioactivo()  =  materialesQueLaConstruyeron.any({material => material.esRadioctivo()})
+	override method esRadioactivo()  =  materialesQueLaConstruyeron.any({material => material.esRadioactivo()})
 	override method energiaQueGenera() = 0
 }
 

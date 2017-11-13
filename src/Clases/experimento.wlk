@@ -36,25 +36,25 @@ object construirUnCircuito inherits Experimento {
 
 object construirUnShockElectrico inherits Experimento {
 	override method materialesRequeridos(_companiero){
-		return #{self.materialConductor(_companiero)} + #{self.materialGenerador(_companiero)}
+		return #{self.materialConductor(_companiero.mochila())} + #{self.materialGenerador(_companiero.mochila())}
 	}
 	
 	override method efecto(_companiero, _materialesNecesarios){
-		_companiero.companiero().sumarEnergia(self.energiaQueIncrementa(_companiero))
+		_companiero.companiero().sumarEnergia(self.energiaQueIncrementa(_materialesNecesarios))
 	}
 	//Retorna un material conductor
-	method materialConductor(_companiero){
-		return _companiero.mochila().find({material => material.electricidadQueConduce() > 0})
+	method materialConductor(_materiales){
+		return _materiales.find({material => material.electricidadQueConduce() > 0})
 		
 	}
 	//Retorna un material generador
-	method materialGenerador(_companiero){
-		return _companiero.mochila().find({material => material.energiaQueGenera() > 0})
+	method materialGenerador(_materiales){
+		return _materiales.find({material => material.energiaQueGenera() > 0})
 	}
 	//Retorna la energia que incrementa un shock electrico
-	method energiaQueIncrementa(_companiero){
-		return self.materialConductor(_companiero).electricidadQueConduce() * 
-			   self.materialGenerador(_companiero).energiaQueGenera() 
+	method energiaQueIncrementa(_materiales){
+		return self.materialConductor(_materiales).electricidadQueConduce() * 
+			   self.materialGenerador(_materiales).energiaQueGenera() 
 	}
 	
 	

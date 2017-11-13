@@ -11,6 +11,8 @@ describe "Tests de Proyecto" {
 	var materiaOscura = new MateriaOscura(cable)
 	var altaLata = new Lata(500)
 	var viejoFleeb = new Fleeb(lataCableada, 20)
+	var bateria = new Bateria(#{cable, viejoFleeb})
+	var circuito = new Circuito(#{cable})
 	
 
 	fixture{
@@ -51,6 +53,20 @@ describe "Tests de Proyecto" {
 		assert.equals(0, materiaOscura.energiaQueGenera())
 	}
 	
+	test "Test de Bateria"{
+		assert.that(bateria.esRadioactivo())
+		assert.equals(30, bateria.gramosDeMetal())
+		assert.equals(0, bateria.electricidadQueConduce())
+		assert.equals(60, bateria.energiaQueGenera())
+	}
+	
+	test "Test de Circuito"{
+		assert.notThat(circuito.esRadioactivo())
+		assert.equals(10, circuito.gramosDeMetal())
+		assert.equals(90, circuito.electricidadQueConduce())
+		assert.equals(0, circuito.energiaQueGenera())
+	}
+	
 	test "Test de Morty"{
 		assert.notThat(morty.puedeRecolectar(lata))
 		assert.equals(970, morty.energia())
@@ -67,12 +83,13 @@ describe "Tests de Proyecto" {
 		assert.that(rick.puedeRealizarExperimento(construirUnCircuito))
 		rick.realizar(construirUnaBateria)
 		assert.equals(1,rick.cantidadDeObjetos())
-		//morty.recolectar(viejoFleeb)
-		//morty.darObjetos(rick)
-		//assert.that(rick.puedeRealizarExperimento(construirUnShockElectrico))
-		//morty.setEnergia(1000)
-		//rick.realizar(construirUnShockElectrico)
-		//assert.equals(2040, morty.energia())
+		morty.recolectar(viejoFleeb)
+		morty.darObjetos(rick)
+		assert.that(rick.puedeRealizarExperimento(construirUnShockElectrico))
+		morty.setEnergia(1000)
+		rick.realizar(construirUnShockElectrico)
+		assert.equals(2040, morty.energia())
+		assert.that(rick.mochila().isEmpty())
 	
 	}
 	
