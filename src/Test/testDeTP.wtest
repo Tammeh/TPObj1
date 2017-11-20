@@ -4,6 +4,7 @@ import Clases.experimento.*
 
 describe "Tests de Proyecto" {
 	
+	var morty = new Morty(3)
 	var lata = new Lata(10)
 	var cable = new Cable(1000, 10)
 	var lataCableada = #{lata, cable}

@@ -29,26 +29,99 @@ class Companiero {
 	//Recolecta un material en especifico
 	method recolectar(unMaterial)
 	//Un compañero entraga sus objetos a otro
-	method darObjetos(unCompaniero){
-		unCompaniero.recibir(mochila)
+	method darObjetos(_companiero){
+		self.accionPertinenteDarObjetos(_companiero)		
+	}
+	method accionPertinenteDarObjetos(_companiero){
+		_companiero.recibir(mochila)
 		self.mochila().removeAll(self.mochila())
 	}
 
 }
 
-object morty inherits Companiero{
-	const capacidadMochila = 3
+class Morty inherits Companiero{
+	const capacidadMochila
+	
+	constructor(_capacidadMochila){
+		capacidadMochila= _capacidadMochila
+	}
 	
 	override method puedeRecolectar(unMaterial){
-		return unMaterial.energiaRequeridaRecoleccion() <= energia && self.cantidadDeObjetos() < capacidadMochila
+		return self.energiaRequeridaRecoleccion(unMaterial) <= energia && self.cantidadDeObjetos() < self.capacidadMochila()
 	}
-	override method recolectar(unMaterial){
-		if (!self.puedeRecolectar(unMaterial)){
+	
+	method energiaRequeridaRecoleccion(unMaterial){
+		return unMaterial.energiaRequeridaRecoleccion()
+	}
+	
+	method capacidadMochila(){
+		return capacidadMochila
+	}
+	override method recolectar(_material){
+		if (!self.puedeRecolectar(_material)){
 			self.error("No puede recolectar el material")
 		}
-		mochila.add(unMaterial)
-		self.restarEnergia(unMaterial.gramosDeMetal())
+		self.accionPertinenteRecoleccion(_material)
 		
+	}
+	
+	method accionPertinenteRecoleccion(_material){
+		mochila.add(_material)
+		self.restarEnergia(self.energiaRequeridaRecoleccion(_material))
+	}
+	
+}
+
+object summer inherits Morty(2){
+	
+	override method energiaRequeridaRecoleccion(_material){
+		return super(_material)*0.8
+	}
+	
+	override method accionPertinenteDarObjetos(_companiero){
+		super(_companiero)
+		_companiero.restarEnergia(10)
+	}
+}
+
+object jerry inherits Morty(3){
+	var estaDeBuenHumor = true
+	var estaSobreexcitado = false
+	
+	method estaDeBuenHumor(){
+		return estaDeBuenHumor
+	}
+	
+	override method capacidadMochila(){
+		if (!estaDeBuenHumor){
+			return 1
+		}
+		if (estaSobreexcitado) {
+			return capacidadMochila*2
+		}
+		return super()
+	}
+	
+	override method accionPertinenteDarObjetos(_companiero){
+		estaDeBuenHumor = false
+		super(_companiero)
+	}
+	
+	override method accionPertinenteRecoleccion(_material){
+		if (_material.serVivo()){
+			estaDeBuenHumor = true
+		}
+		if (!estaSobreexcitado){
+			self.efectoSobreExcitacion()
+			super(_material)
+		}
+		
+	}
+	
+	method efectoSobreExcitacion(){
+		if ((1..4).anyOne() == 1){
+			mochila.removeAll(self.mochila())
+		}
 	}
 }
 
