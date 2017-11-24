@@ -15,13 +15,25 @@ describe "Tests de Proyecto" {
 	var bateria = new Bateria(#{cable, viejoFleeb})
 	var circuito = new Circuito(#{cable})
 	
+	
 
 	fixture{
 		morty.setEnergia(1000)
 		morty.recolectar(cable)
 		morty.recolectar(lata)
 		morty.recolectar(materiaOscura)
+		
 		rick.companiero(morty)
+		
+		summer.setEnergia(1000)
+		summer.recolectar(cable)
+		summer.recolectar(lata)
+		
+		jerry.setEnergia(1000)
+		jerry.recolectar(cable)
+		jerry.recolectar(lata)
+		jerry.recolectar(materiaOscura)
+		
 	}
 
 	test "Test de Lata" {
@@ -94,7 +106,48 @@ describe "Tests de Proyecto" {
 	
 	}
 	
-
+	//Tests de Summer
 	
+	test "Test de Summer"{
+		rick.companiero(summer)
+		assert.notThat(summer.puedeRecolectar(lata))
+		assert.equals(984, summer.energia())
+		summer.darObjetos(rick)
+		assert.that(summer.mochila().isEmpty())
+		assert.equals(974, summer.energia())
+		
+	}
+	
+	//Tests de jerry
+	test "test básico de Jerry"{
+		rick.companiero(jerry)
+		assert.notThat(jerry.puedeRecolectar(lata))
+		assert.equals(970, jerry.energia())
+		//console.println(jerry.cantidadDeObjetos())
+		//console.println(jerry.capacidadMochila())
+		jerry.darObjetos(rick)
+		assert.that(jerry.mochila().isEmpty())
+		//console.println(jerry.estaDeBuenHumor())
+	}
+
+	test "test comportamiento de Jerry de mal humor"{
+		rick.companiero(jerry)
+		jerry.darObjetos(rick)
+		assert.notThat(jerry.estaDeBuenHumor())
+		jerry.recolectar(lata)
+		assert.notThat(jerry.puedeRecolectar(cable))
+		jerry.darObjetos(rick)
+		jerry.recolectar(fleeb)
+		assert.that(jerry.estaDeBuenHumor())
+	}
+	
+	test "comportamiento Jerry sobreexcitado"{
+		rick.companiero(jerry)
+		jerry.darObjetos(rick)
+		jerry.recolectar(viejoFleeb)
+		assert.that(jerry.estaSobreExcitado())
+		assert.equals(6, jerry.capacidadMochila())
+		//Aguardando respuesta para poder verificar el efecto al recolectar
+	}
 	
 }	

@@ -6,6 +6,7 @@ class Material {
 	method electricidadQueConduce()
 	//Verifica si un material es radioactivo o no
 	method esRadioactivo()
+	method serVivo()
 	//Retorna la energia que genera un material
 	method energiaQueGenera()
 	//Retorna la energia requerida para poder recolectar un material
@@ -29,6 +30,7 @@ class Lata inherits Material{
 	
 	override method energiaQueGenera() = 0
 	
+	override method serVivo() = false
 }
 
 class Cable inherits Material{
@@ -49,6 +51,7 @@ class Cable inherits Material{
 	
 	override method energiaQueGenera() = 0
 	
+	override method serVivo() = false
 }
 
 class Fleeb inherits Material{
@@ -76,6 +79,8 @@ class Fleeb inherits Material{
 	override method energiaRequeridaRecoleccion(){
 		return super() * 2
 	}
+	
+	override method serVivo() = true
 }
 
 class MateriaOscura inherits Material{
@@ -88,7 +93,7 @@ class MateriaOscura inherits Material{
 	override method electricidadQueConduce() = materialBase.electricidadQueConduce() / 2
 	override method esRadioactivo()  = false
 	override method energiaQueGenera() = materialBase.energiaQueGenera() * 2
-	
+	override method serVivo() = false
 }
 
 class Bateria inherits Material{
@@ -102,7 +107,7 @@ class Bateria inherits Material{
 	override method electricidadQueConduce() = 0
 	override method esRadioactivo()  = true
 	override method energiaQueGenera() = self.gramosDeMetal()*2
-	
+	override method serVivo() = false
 }
 
 class Circuito inherits Material{
@@ -116,6 +121,7 @@ class Circuito inherits Material{
 	override method electricidadQueConduce() =  (materialesQueLaConstruyeron.sum({material => material.electricidadQueConduce()})*3)
 	override method esRadioactivo()  =  materialesQueLaConstruyeron.any({material => material.esRadioactivo()})
 	override method energiaQueGenera() = 0
+	override method serVivo() = false
 }
 
 

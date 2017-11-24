@@ -80,7 +80,7 @@ object summer inherits Morty(2){
 	
 	override method accionPertinenteDarObjetos(_companiero){
 		super(_companiero)
-		_companiero.restarEnergia(10)
+		self.restarEnergia(10)
 	}
 }
 
@@ -88,9 +88,8 @@ object jerry inherits Morty(3){
 	var estaDeBuenHumor = true
 	var estaSobreexcitado = false
 	
-	method estaDeBuenHumor(){
-		return estaDeBuenHumor
-	}
+	method estaDeBuenHumor() = estaDeBuenHumor
+	method estaSobreExcitado() = estaSobreexcitado
 	
 	override method capacidadMochila(){
 		if (!estaDeBuenHumor){
@@ -108,14 +107,16 @@ object jerry inherits Morty(3){
 	}
 	
 	override method accionPertinenteRecoleccion(_material){
+		if (estaSobreexcitado){
+			self.efectoSobreExcitacion()
+		}
 		if (_material.serVivo()){
 			estaDeBuenHumor = true
 		}
-		if (!estaSobreexcitado){
-			self.efectoSobreExcitacion()
-			super(_material)
-		}
-		
+		if (_material.esRadioactivo()){
+			estaSobreexcitado = true
+		}		
+		super(_material)
 	}
 	
 	method efectoSobreExcitacion(){
