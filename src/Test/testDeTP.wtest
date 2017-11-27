@@ -6,6 +6,8 @@ describe "Tests de Proyecto" {
 	
 	var morty = new Morty(3)
 	var lata = new Lata(10)
+	var lata250metal = new Lata(2500)
+	var lata200metal = new Lata(2000)
 	var cable = new Cable(1000, 10)
 	var lataCableada = #{lata, cable}
 	var fleeb = new Fleeb(lataCableada,10)
@@ -13,6 +15,7 @@ describe "Tests de Proyecto" {
 	var altaLata = new Lata(500)
 	var viejoFleeb = new Fleeb(lataCableada, 20)
 	var bateria = new Bateria(#{cable, viejoFleeb})
+	var bateriaOP = new Bateria(#{cable, viejoFleeb, altaLata, bateria})
 	var circuito = new Circuito(#{cable})
 	
 	
@@ -33,6 +36,8 @@ describe "Tests de Proyecto" {
 		jerry.recolectar(cable)
 		jerry.recolectar(lata)
 		jerry.recolectar(materiaOscura)
+		
+		estrategia.estrategiaElegida(menorCantidadDeMetal)
 		
 	}
 
@@ -147,6 +152,36 @@ describe "Tests de Proyecto" {
 		jerry.recolectar(viejoFleeb)
 		assert.that(jerry.estaSobreExcitado())
 		assert.equals(6, jerry.capacidadMochila())
+	}
+	
+	test "estrategia menos cantidad de  metal"{
+		estrategia.estrategiaElegida(menorCantidadDeMetal)
+		morty.mochila().removeAll(morty.mochila())
+		morty.setEnergia(2000000)
+		morty.recolectar(bateria)
+		morty.recolectar(bateriaOP)
+		morty.darObjetos(rick)
+		morty.recolectar(lata250metal)
+		morty.recolectar(lata200metal)
+		morty.darObjetos(rick)
+		assert.that(rick.puedeRealizarExperimento(construirUnShockElectrico))
+		rick.realizar(construirUnShockElectrico)
+		assert.equals(#{bateriaOP, lata250metal}, rick.mochila())
+	}
+	
+	test "estrategia mejorGeneradorElectrico"{
+		estrategia.estrategiaElegida(mejorGeneradorElectrico)
+		morty.mochila().removeAll(morty.mochila())
+		morty.setEnergia(2000000)
+		morty.recolectar(bateria)
+		morty.recolectar(bateriaOP)
+		morty.darObjetos(rick)
+		morty.recolectar(lata250metal)
+		morty.recolectar(lata200metal)
+		morty.darObjetos(rick)
+		assert.that(rick.puedeRealizarExperimento(construirUnShockElectrico))
+		rick.realizar(construirUnShockElectrico)
+		assert.equals(rick.mochila().contains(bateria))
 	}
 	
 }	
