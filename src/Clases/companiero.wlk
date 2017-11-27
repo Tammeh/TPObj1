@@ -126,10 +126,13 @@ object jerry inherits Morty(3){
 	}
 }
 
-object rick inherits Companiero{
+object rick{
+	var mochila = #{}
 	var companiero
 	var experimentosQueSabe = #{}
 	
+	method mochila() = mochila
+	method cantidadDeObjetos() = mochila.size()
 	method companiero() = companiero
 	method companiero(unCompaniero){ companiero = unCompaniero }
 	method experimentosQueSabe() = experimentosQueSabe
@@ -168,14 +171,5 @@ object rick inherits Companiero{
 	//Rick recibe el efecto del experimento <unExperimento>
 	method recibirEfecto(unExperimento, _materialesNecesarios){
 		unExperimento.efecto(self, _materialesNecesarios)
-	}
-	
-	//Ambos metodos quedan vacios, ya que no nos interesan para Rick
-	override method puedeRecolectar(unMaterial){
-		//Dejar vacio
-	}
-	
-	override method recolectar(unMaterial){
-		//Dejar vacio
 	}
 }

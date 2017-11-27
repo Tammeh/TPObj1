@@ -147,7 +147,6 @@ describe "Tests de Proyecto" {
 		jerry.recolectar(viejoFleeb)
 		assert.that(jerry.estaSobreExcitado())
 		assert.equals(6, jerry.capacidadMochila())
-		//Aguardando respuesta para poder verificar el efecto al recolectar
 	}
 	
 }	
