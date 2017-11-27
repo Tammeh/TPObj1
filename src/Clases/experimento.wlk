@@ -58,7 +58,7 @@ object estrategia{
 
 object alAzar{
 	method materialesConstruirBateria(_companiero){
-		if(_companiero.mochila().any({material => material.gramosDeMetal() > 200}) || _companiero.mochila().any({material => material.esRadioactivo()})){
+		if(!_companiero.mochila().any({material => material.gramosDeMetal() > 200}) && !_companiero.mochila().any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
 	 	}
 	 	return #{_companiero.mochila().find({material => material.gramosDeMetal() > 200})} +
@@ -84,7 +84,7 @@ object alAzar{
 
 object menorCantidadDeMetal{
 	method materialesConstruirBateria(_companiero){
-		if(_companiero.mochila().any({material => material.gramosDeMetal() > 200}) || _companiero.mochila().any({material => material.esRadioactivo()})){
+		if(!_companiero.mochila().any({material => material.gramosDeMetal() > 200}) && !_companiero.mochila().any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
 	 	}
 	 	var listaFiltradaPorMetal = _companiero.mochila().filter({material => material.gramosDeMetal() > 200})
@@ -114,7 +114,7 @@ object menorCantidadDeMetal{
 
 object mejorGeneradorElectrico{
 	method materialesConstruirBateria(_companiero){
-		if(_companiero.mochila().any({material => material.gramosDeMetal() > 200}) || _companiero.mochila().any({material => material.esRadioactivo()})){
+		if(!_companiero.mochila().any({material => material.gramosDeMetal() > 200}) && !_companiero.mochila().any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
 	 	}
 	 	var listaFiltradaPorMetal = _companiero.mochila().filter({material => material.gramosDeMetal() > 200})
@@ -144,7 +144,7 @@ object mejorGeneradorElectrico{
 
 object ecologico{
 	method materialesConstruirBateria(_companiero){
-		if(_companiero.mochila().any({material => material.gramosDeMetal() > 200}) || _companiero.mochila().any({material => material.esRadioactivo()})){
+		if(!_companiero.mochila().any({material => material.gramosDeMetal() > 200}) && !_companiero.mochila().any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
 	 	}
 	 	var listaFiltradaPorMetal = _companiero.mochila().filter({material => material.gramosDeMetal() > 200})
@@ -155,7 +155,7 @@ object ecologico{
 		return _companiero.mochila().filter({material => material.electricidadQueConduce() >= 5})
 	}
 	method materialConductor(_materiales){
-		if(!_materiales.any({material => material.electricidadQueConduce() > 0})){
+		if(!_materiales.any({material => material.electricidadQueConduce() > 0}) && !_materiales.any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
 		}
 		var listaFiltradaPorConduccion = _materiales.filter({material => material.electricidadQueConduce() > 0})
@@ -163,7 +163,7 @@ object ecologico{
 	}
 	//Retorna un material generador
 	method materialGenerador(_materiales){
-		if(!_materiales.any({material => material.energiaQueGenera() > 0})){
+		if(!_materiales.any({material => material.energiaQueGenera() > 0}) && !_materiales.any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
 		}
 		var listaFiltradaPorGeneracion = _materiales.filter({material => material.energiaQueGenera() > 0})

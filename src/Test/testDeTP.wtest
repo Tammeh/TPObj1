@@ -184,4 +184,20 @@ describe "Tests de Proyecto" {
 		assert.equals(rick.mochila().contains(bateria))
 	}
 	
+	test "estrategia ecologica"{
+		estrategia.estrategiaElegida(ecologico)
+		morty.mochila().removeAll(morty.mochila())
+		morty.setEnergia(2000000)
+		morty.recolectar(bateria)
+		morty.recolectar(bateriaOP)
+		morty.darObjetos(rick)
+		morty.recolectar(lata250metal)
+		morty.recolectar(lata200metal)
+		morty.recolectar(viejoFleeb)
+		morty.darObjetos(rick)
+		assert.that(rick.puedeRealizarExperimento(construirUnShockElectrico))
+		rick.realizar(construirUnShockElectrico)
+		assert.equals(rick.mochila().contains(bateria))
+	}
+	
 }	
