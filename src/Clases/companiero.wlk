@@ -88,6 +88,9 @@ object jerry inherits Morty(3){
 	var estaDeBuenHumor = true
 	var estaSobreexcitado = false
 	
+	//TODO declara estos getters pero no se usan nunca
+	// Declarar estos mensajes comunica que alguien necesita
+	// saber esta informacion pero nadie lo pregunta.
 	method estaDeBuenHumor() = estaDeBuenHumor
 	method estaSobreExcitado() = estaSobreexcitado
 	
@@ -95,6 +98,10 @@ object jerry inherits Morty(3){
 		if (!estaDeBuenHumor){
 			return 1
 		}
+		//TODO capacidadMochila *2 seria mejor super() * 2
+		// al usar una variable de instancia de la super clase
+		// rompe el encapsulamiento. recomendacion usar un mensaje
+		// que resuelva la capacidadMochila (super())
 		if (estaSobreexcitado) {
 			return capacidadMochila*2
 		}

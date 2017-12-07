@@ -43,6 +43,13 @@ object construirUnShockElectrico inherits Experimento {
 	}
 	//Retorna la energia que incrementa un shock electrico
 	method energiaQueIncrementa(_materiales){
+		
+		// TODO usar un WKO implica que siempre que se realize un experimento
+		// se realiza con la estrategia global, es decir, si existen varios
+		// actores que pueden realizar un experimento todos lo deben hacer
+		// con la misma estrategia. Si bien para este dominio no presenta un problema
+		// una solucion mas flexible seria que quien realiza el experimento
+		// conozca la estrategia que va a usar para seleccionar los materiales.
 		return estrategia.estrategiaElegida().materialConductor(_materiales).electricidadQueConduce() * 
 			   estrategia.estrategiaElegida().materialGenerador(_materiales).energiaQueGenera() 
 	}
@@ -57,6 +64,9 @@ object estrategia{
 }
 
 object alAzar{
+	
+	//TODO no es responsabilidad de las estrategias saber
+	// que materiales son necesarios para construir una bateria
 	method materialesConstruirBateria(_companiero){
 		if(!_companiero.mochila().any({material => material.gramosDeMetal() > 200}) && !_companiero.mochila().any({material => material.esRadioactivo()})){
 			self.error("No hay materiales que cumplan esas condiciones")
