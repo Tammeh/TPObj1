@@ -92,11 +92,11 @@ object jerry inherits Morty(3){
 	method estaSobreExcitado() = estaSobreexcitado
 	
 	override method capacidadMochila(){
-		if (!estaDeBuenHumor){
+		if (!self.estaDeBuenHumor()){
 			return 1
 		}
-		if (estaSobreexcitado) {
-			return capacidadMochila*2
+		if (self.estaSobreExcitado()) {
+			return super()*2
 		}
 		return super()
 	}
@@ -107,7 +107,7 @@ object jerry inherits Morty(3){
 	}
 	
 	override method accionPertinenteRecoleccion(_material){
-		if (estaSobreexcitado){
+		if (self.estaSobreExcitado()){
 			self.efectoSobreExcitacion()
 		}
 		if (_material.serVivo()){
